@@ -1,0 +1,25 @@
+using System;
+
+public class Program
+{
+	static string message = "10010110 11110111 01010110 00000001 00010111 00100110 01010111 00000001 00010111 01110110 01010111 00110110 11110111 11010111 01010111 00000011";
+	public static void Main()
+	{
+		Console.WriteLine(message);
+		string newMessage = "";
+		for(int i = 0; i <= message.Length/9; i++) {
+		 string beforeLastChar = message[i * 9 + 6] == '0' ? "1" : "0";
+         string lastChar = message[i * 9 + 7] == '0' ? "1" : "0";
+		 string shortMessage = convertMessage(message, i*9, beforeLastChar, lastChar);
+		 shortMessage = shortMessage.Trim();
+		 int intMessage = Convert.ToInt32(shortMessage, 2);	
+		 newMessage = newMessage + Convert.ToChar(intMessage);	 
+		}
+		Console.WriteLine(newMessage);
+	}
+	
+	static private string convertMessage(string message, int i, string beforeLastChar, string lastChar) {
+        return $"{message[i + 4]}{message[i + 5]}{beforeLastChar}{lastChar}{message[i + 0]}{message[i + 1]}{message[i + 2]}{message[i + 3]} ";
+    }
+	
+}
