@@ -1,0 +1,58 @@
+using System;
+
+public class Program
+{
+	
+	public static void Main()
+	{
+		Random rnd = new Random();
+		int arrayLength = -1;
+		while (arrayLength == -1){
+		   arrayLength = selectArrayLength();
+		}
+		int[] array1 = new int[arrayLength];
+		int[] array2 = new int[arrayLength];
+		for(int i = 0; i <= arrayLength-1; i++) { //generate values
+			array1[i] = rnd.Next(-100, 100);
+			array2[i] = rnd.Next(-100, 100);
+		}
+		Console.WriteLine("Array 1:");
+		foreach(int item in array1){
+			Console.Write($"{item}, ");
+		}
+		Console.WriteLine("\nArray 2:");
+		foreach(int item in array2){
+			Console.Write($"{item}, ");
+		}
+		int distance = findDistance(array1[0], array2[0]);
+		int[] numbers = {array1[0], array2[0]}; 
+		foreach(int num1 in array1){
+			foreach(int num2 in array2){ //getting only the first result with shortest distance
+				int sum = findDistance(num1, num2); 
+				if (sum < distance) { 
+					distance = sum; 
+					numbers[0] = num1;
+					numbers[1] = num2;		
+				}
+			}
+		}
+		Console.WriteLine($"\n{numbers[0]} and {numbers[1]} form the shortest distance between numbers of the two arrays: {distance}");
+	}
+	
+	static private int selectArrayLength() {
+		Console.WriteLine("Enter array length between 10 and 999");
+        string numberString = Console.ReadLine();
+		int number = Convert.ToInt16(numberString);
+		if(number > 9 && number < 1000) {return number;} 
+		else {
+			return -1;
+		}
+    }
+	
+	static private int findDistance(int num1, int num2){
+	int distance = num1 - num2;
+		if(distance < 0) {distance = distance * -1;}
+		return distance;
+	}
+	
+}
