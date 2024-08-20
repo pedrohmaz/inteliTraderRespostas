@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+	
+	public static void Main()
+	{
+		Console.WriteLine("Please, select the number of commands.");
+		int numberOfCommands = Convert.ToInt32(Console.ReadLine()); //first user input
+		Command[] commandList = new Command[numberOfCommands];
+		List<Product> productList = new List<Product>();
+		
+		Console.WriteLine("Please, write each command and press the 'enter' key.");
+		
+   	    for(int i = 0; i < numberOfCommands ; i++){
+			commandList[i] = createCommand(); //user command inputs
+		}
+		
+		foreach (Command command in commandList){
+			executeAction(command, productList); //processes running
+		}
+		
+		Console.WriteLine("\nCreating book:");
+		
+		generateBook(productList); //output
+		
+	}
+	
+	
+	static Command createCommand(){
+		string input = Console.ReadLine();
+			string[] stringProperties = input.Split(",");
+			Command newCommand = new Command(
+			    Convert.ToInt32(stringProperties[0]),
+				Convert.ToInt32(stringProperties[1]),
+				Convert.ToSingle(stringProperties[2]),
+				Convert.ToInt32(stringProperties[3])
+			);
+		return newCommand;
+	}
+	
+	static void executeAction(Command command, List<Product> list){
+		switch(command.Action) {
+				case 0:
+					if(command.Pos >= list.Count){
+						list.Add(new Product(command.Price, command.Quantity));
+					} else { list[command.Pos] = new Product(command.Price, command.Quantity); }
+					break;
+					
+				case 1:
+					float newPrice = list[command.Pos].Price;
+					int newQuantity	= list[command.Pos].Quantity;
+					if(command.Price > 0.0f) {
+						newPrice = command.Price;
+					} 
+					if(command.Quantity > 0) {
+						newQuantity = command.Quantity;
+					} 
+					list[command.Pos] = new Product(newPrice, newQuantity);
+					break;
+					
+				case 2:
+					if(command.Pos < list.Count) {
+						for(int i = command.Pos; i < list.Count - 1; i++){
+						list[i] = list[i+1];	
+						}
+						list.RemoveAt(list.Count-1);
+					}
+					break;
+		 }
+	} 
+	
+	static void generateBook(List<Product> list){
+		int productCounter = 0;
+			foreach(Product product in list){
+				if(product != null) {
+					productCounter++;
+					Console.WriteLine($"{productCounter},{product.Price},{product.Quantity}");
+			}
+		}
+	}
+	
+}
+
+public class Command {
+	
+	public int Pos {get;}
+	public int Action {get;}
+	public float Price {get; set;}
+	public int Quantity {get; set;}
+	
+	public Command(int pos, int action, float price, int quantity) {
+	
+		Pos = pos-1;
+		Action = action;
+		Price = price;
+		Quantity = quantity;
+	
+	}
+	
+}
+
+public class Product {
+	
+	public int Pos {get;}
+	public float Price {get;}
+	public int Quantity {get;}
+	
+	public Product(float price, int quantity) {
+		Price = price;
+		Quantity = quantity;
+	
+	}
+	
+}
+
+
+
+
+
+
