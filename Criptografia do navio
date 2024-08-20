@@ -5,21 +5,36 @@ public class Program
 	static string message = "10010110 11110111 01010110 00000001 00010111 00100110 01010111 00000001 00010111 01110110 01010111 00110110 11110111 11010111 01010111 00000011";
 	public static void Main()
 	{
+		Console.WriteLine("Original message:");
 		Console.WriteLine(message);
-		string newMessage = "";
+		string newMessage = ""; //this will be the final message
 		for(int i = 0; i <= message.Length/9; i++) {
-		 string beforeLastChar = message[i * 9 + 6] == '0' ? "1" : "0";
-         string lastChar = message[i * 9 + 7] == '0' ? "1" : "0";
-		 string shortMessage = convertMessage(message, i*9, beforeLastChar, lastChar);
+		 string beforeLastChar = message[i * 9 + 6] == '0' ? "1" : "0"; //invert second before last char
+         string lastChar = message[i * 9 + 7] == '0' ? "1" : "0"; //invert last char
+		 string shortMessage = decryptMessage(message, i*9, beforeLastChar, lastChar); //swap first 4 with last 4
 		 shortMessage = shortMessage.Trim();
-		 int intMessage = Convert.ToInt32(shortMessage, 2);	
+		 int intMessage = convertByteArrayToDecimal(shortMessage); //could use Convert.ToInt32(shortMessage, 2)
 		 newMessage = newMessage + Convert.ToChar(intMessage);	 
 		}
+		Console.WriteLine("\nFinal message:");
 		Console.WriteLine(newMessage);
 	}
 	
-	static private string convertMessage(string message, int i, string beforeLastChar, string lastChar) {
+	static private string decryptMessage(string message, int i, string beforeLastChar, string lastChar) {
         return $"{message[i + 4]}{message[i + 5]}{beforeLastChar}{lastChar}{message[i + 0]}{message[i + 1]}{message[i + 2]}{message[i + 3]} ";
     }
+	
+	static private int convertByteArrayToDecimal(string byteArray){
+	      int decimalResult = 0;
+		  int multiplier = 1;
+		
+		for(int i = byteArray.Length - 1; i > 0; i--) {
+		    if(byteArray[i] == '1') {
+				 decimalResult = decimalResult + multiplier;
+		    }
+			 multiplier = multiplier * 2;
+	    }
+		return decimalResult;
+	 }
 	
 }
