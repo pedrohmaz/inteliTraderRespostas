@@ -1,5 +1,3 @@
 # inteliTraderRespostas
-Favor, copiar o código do desafio no site 'dotnetfiddle.net'. 
-Utilizar as seguintes opções:
-Language: C#,
-Compiler: .NET 8
+Favor, copiar o código do desafio no site 'rextester.com'. 
+No desafio 'Livro de ofertas', clicar na opção '[+] Show input' e digitar todos os inputs antes de rodar.
