@@ -30,7 +30,7 @@ public class Program
 	
 	static Command createCommand(){
 		string input = Console.ReadLine();
-			string[] stringProperties = input.Split(",");
+			string[] stringProperties = input.Split(',');
 			Command newCommand = new Command(
 			    Convert.ToInt32(stringProperties[0]),
 				Convert.ToInt32(stringProperties[1]),
