@@ -6,15 +6,12 @@ public class Program
 	public static void Main()
 	{
 		Random rnd = new Random();
-		int arrayLength = -1;
-		while (arrayLength == -1){
-		   arrayLength = selectArrayLength();
-		}
+		int arrayLength = rnd.Next(10, 20);
 		int[] array1 = new int[arrayLength];
 		int[] array2 = new int[arrayLength];
 		for(int i = 0; i <= arrayLength-1; i++) { //generate values
-			array1[i] = rnd.Next(-100, 100);
-			array2[i] = rnd.Next(-100, 100);
+			array1[i] = rnd.Next(-1000, 1000);
+			array2[i] = rnd.Next(-1000, 1000);
 		}
 		Console.WriteLine("Array 1:");
 		foreach(int item in array1){
@@ -38,16 +35,6 @@ public class Program
 		}
 		Console.WriteLine($"\n{numbers[0]} and {numbers[1]} form the shortest distance between numbers of the two arrays: {distance}");
 	}
-	
-	static private int selectArrayLength() {
-		Console.WriteLine("Enter array length between 10 and 999");
-        string numberString = Console.ReadLine();
-		int number = Convert.ToInt16(numberString);
-		if(number > 9 && number < 1000) {return number;} 
-		else {
-			return -1;
-		}
-    }
 	
 	static private int findDistance(int num1, int num2){
 	int distance = num1 - num2;
